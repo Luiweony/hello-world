@@ -1,0 +1,327 @@
+#include<stdio.h>
+
+#include<stdlib.h>
+
+#include<math.h>
+
+#include <conio.h>
+
+#include <stdlib.h>
+
+void main()
+
+{
+
+	int d[9999],p[9999],n,i,j,choice;  //d[i]玩家总得分；p[i]为玩家每轮得分；n为玩家人数；i为当前的玩家;j用于冒泡排序；choice为选择菜单选项
+
+	double a[9999],Ave,G,Q,b[9999],c[9999],t,s;
+
+	//a[]为第i个玩家输入的数；Ave为平均数；G为黄金点；Q为玩家数字与黄金点的差；b[]为；c[]为；t冒泡中转；s为每一轮玩家输入数字总和
+
+Third:       printf("\n\n\n\n\t\t\t* 欢迎来到“黄金点游戏”*\n\n\t\t\t【1】 开始新游戏\n\n\t\t\t【2】 游戏规则\n\n\t\t\t【3】 上局玩家比分扳\n\n\t\t\t【4】 退出游戏\n\n\t\t\t请输入相应的选项,按回车键确定: ");
+
+             scanf("%d",&choice);
+
+             system("cls");
+
+             switch(choice)
+
+			 {  
+
+             case 1:
+
+                 {
+
+					 printf("\n\n\n\n\t\t\t请输入进行游戏的玩家人数:");
+
+					 scanf("%d",&n);
+
+					 system("cls");
+
+					 for(i=0;i<n;i++)
+
+					 {
+
+						 d[i]=0;
+
+					 }
+
+Second:         s=0;
+
+				for(i=0;i<n;i++)
+
+				{
+
+					p[i]=0;
+
+				}
+
+				for(i=0;i<n;i++)
+
+				{
+
+Loop:         printf("\n\n\n\n\t\t\t请第%d位玩家输入所猜的数字****** ",i+1);
+
+			  //a[i]=getch();			  
+
+			  scanf("%lf",&a[i]);		  
+
+			  if(a[i]>0&&a[i]<100)
+
+				  s=s+a[i];
+
+			  else
+
+			  {
+
+				  system("cls");
+
+				  printf("\n\n\t                  ********ERROR********\n\n\t");
+
+				  printf("输入数字必须在（0~100）的开区间内，请按回车键重新输入。");
+
+				  printf("\n\n\t                  ********************\n\n\t");
+
+				  system("pause");
+
+				  system("cls");
+
+				  goto Loop;
+
+			  }
+
+			  system("cls");
+
+				}
+
+				Ave=s/((double)n);
+
+				G=Ave*0.618;
+
+				for(i=0;i<n;i++)
+
+				{
+
+					Q=a[i]-G;
+
+					if(Q<0)
+
+					{
+
+						Q=-Q;
+
+					}
+
+					b[i]=Q;
+
+					c[i]=b[i];
+
+				}
+
+				for(i=0;i<n-1;i++)            //b[i]冒泡排序玩家距离黄金的差值
+
+					for(j=0;j<n-i-1;j++)
+
+					{
+
+						if(b[j]>b[j+1])
+
+						{
+
+							t=b[j+1];
+
+							b[j+1]=b[j];
+
+							b[j]=t;
+
+						}
+
+					}
+
+					for(i=0;i<n;i++)    //玩家每轮得分p[i],总得分b[i]
+
+					{
+
+						if(b[0]==c[i])
+
+						{
+
+							d[i]=d[i]+n;
+
+							p[i]=n;
+
+						}
+
+						if(b[n-1]==c[i])
+
+						{
+
+							d[i]=d[i]-2;
+
+							p[i]=-2;
+
+						}
+
+					}
+
+First:       printf("\n\n\n\n\t\t\t* List *\n\n\t\t\t【1】 查看本轮玩家得分情况\n\n\t\t\t【2】 查看本“轮黄金分割常数G的值”\n\n\t\t\t【3】 玩家比分扳\n\n\t\t\t【4】 进行下一轮\n\n\t\t\t【5】 回到游戏主菜单\n\n\t\t\t请输入相应的选项,按回车键确定: ");
+
+             scanf("%d",&choice);
+
+             system("cls");
+
+             switch(choice)
+
+             {
+
+             case 1:
+
+                 {
+
+                     printf("\n\t\t\t*本轮各位玩家得分情况:*\n\t\t\t\n");
+
+                     for(i=0;i<n;i++)
+
+                     {
+
+						 printf("\n\t\t\t第%d位玩家本轮得分: %d 分\n\t\t\t",i+1,p[i]);
+
+                     }
+
+                     printf("\n\nTip:点击回车键回到List\n\n");
+
+                     system("pause");
+
+                     system("cls");
+
+                     goto First;
+
+                 }break;
+
+             case 2:
+
+                 {
+
+                     printf("\n\n\t                  ********Golden Point********\n\n\t");
+
+                     printf("                  轮黄金分割常数G的值:%0.5lf",G);
+
+                     printf("\n\n\t                  ****************************\n\n\t");
+
+                     printf("\n\nTip:点击回车键回到List\n\n");
+
+                     system("pause");
+
+                     system("cls");
+
+                     goto First;
+
+                 }break;
+
+             case 3:
+
+                 {
+
+                     printf("\n\t\t\t*各位玩家总得分情况:*\n\t\t\t\n");
+
+                     for(i=0;i<n;i++)
+
+                     {
+
+						 printf("\n\t\t\t第%d位玩家: %d 分\n\t\t\t",i+1,d[i]);
+
+                     }
+
+                     printf("\n\nTip:点击回车键回到List\n\n");
+
+                     system("pause");
+
+                     system("cls");
+
+                     goto First;
+
+                 }break;
+
+             case 4:
+
+                 {
+
+                     goto Second;
+
+                 }break;
+
+             case 5:
+
+                 {
+
+                     goto Third;
+
+                 }break;
+
+             default:{}break;
+
+             }
+
+           }break;
+
+        case 2:
+
+            {
+
+				printf("\n\n\t                  ********Rule********\n\n\t");
+
+				printf("N个同学（N通常大于10），每人写一个0~100之间的有理数 (不包括0或100)，交给裁判，裁判算出所有数字的平均值，然后乘以0.618（所谓黄金分割常数），得到G值。提交的数字最靠近G（取绝对值）的同学得到N分，离G最远的同学得到－2分，其他同学得0分。\n\n");
+
+				printf("\n\t                  ********************");
+
+				printf("\n\nTip:点击回车键回到Home页面\n\n");
+
+				system("pause");
+
+				system("cls");
+
+				goto Third;
+
+            }break;
+
+        case 3:
+
+            {
+
+				printf("\n\t\t\t*各位玩家总得分情况:*\n\t\t\t\n");
+
+				for(i=0;i<n;i++)
+
+				{
+
+					printf("\n\t\t\t第%d位玩家: %d 分\n\t\t\t",i+1,d[i]);
+
+				}
+
+				printf("\n\nTip:点击回车键回到List\n\n");
+
+				system("pause");
+
+				system("cls");
+
+				goto Third;
+
+            }break;
+
+        case 4:
+
+            {
+
+                printf("\n\n\t******************************************************************\n\n");
+
+                printf("\n\t\t\t\t感谢您的支持！\n\t\t");
+
+                printf("\n\n\t******************************************************************\n\n");
+
+            }
+
+		default:{}break;
+
+        } 
+
+}
